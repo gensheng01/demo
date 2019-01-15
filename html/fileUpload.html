@@ -12,26 +12,16 @@
 			//上传form格式文件
 		var formData = new FormData();
 		var uploadFile = $('#studentExcel').get(0).files[0];
-		var token = $.cookie("qiaoqiao_token");
-		var studentExcelPWD = $("#studentExcelPWD").val();
-		if(studentExcelPWD=="")
-		{
-            $(".error").css("display","block");
-            $(".error").text("请填写密码");
-			$("#studentExcelPWD").focus();
-			return;
-		}
-		var pattern = /(\.*.xlsx$)|(\.*.xlsm$)|(\.*.xltx$)|(\.*.xltm$)|(\.*.xlam$)|(\.*.xlsb$)/;
+		var pattern = /\.xl.{1,2}$/;//判断excel文件
         if (!pattern.test(uploadFile.name)) {
             alert("上传文件格式有误，请重新上传");
             return false;
         } 
-		$(".error").css("display","none");
 		formData.append("file",uploadFile);
 		//判断是否选中文件
 		if("undefined" != typeof(uploadFile) && uploadFile != null && uploadFile != ""){
 			$.ajax({
-				url: serverName + 'student/addByExcel',
+				url: url,
 				type:'POST',
 				data:formData,
 				async: false,  
@@ -42,8 +32,6 @@
 					console.log(data);
 					if(data.resultCode == 0){
 						alert("上传成功！");
-						$("#studentExcelPWD").val("");
-						$('#studentExcel').val("")
 					}else{
 						alert(data.resultMsg)
 					}

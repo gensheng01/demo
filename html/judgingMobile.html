@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+     <script type="text/javascript">
+        // 当浏览器窗口大小发生变化的时候 执行什么事情
+        window.onresize = resizePage;
+        resizePage();
+
+        function resizePage() {
+            // 当前屏幕的宽度
+            var current = document.documentElement.clientWidth;
+            document.documentElement.style.fontSize = current * 100 / 750 + 'px';
+        }
+    </script>
+</head>
+<body>
+	
+	<script type="text/javascript">
+		//判断设备型号
+		var u = navigator.userAgent;
+			if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {//安卓手机
+			//alert("安卓手机");
+			window.location.href = "download.html";
+		} else if (u.indexOf('iPhone') > -1) {//苹果手机
+			window.location.href = "http://h.niudouxing.cn/log";
+			//alert("苹果手机");
+		} else{//winphone手机
+			alert("请在手机端打开此网站")
+		}
+	</script>
+</body>
+</html>

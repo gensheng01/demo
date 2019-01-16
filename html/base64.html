@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#imgWrap img{
+				width: 100px;
+				height: 100px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="imgWrap">
+			<img src="img/0.jpg"
+alt="Base64 encoded image" width="150" height="150"/>
+		</div>
+		
+		<script src="../js/libs/jquery-1.11.3.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/libs/jquery.base64.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			base64Code = "iVBORw0KGgoAAAANSUhEUgAAAHgAAAAoCAIAAAC6iKlyAAABU0lEQVR42u3awQ3CMAwFUKZgA+aBXVgHNmGHrsKRW0GCQxU3jhMnrl2+lVtzekLut8thRpnUAQSABjQK0IAGNArQgEYBGtCARgEa0ChA/+pxPUtOMOjp9KQH0D2hV4kHWV+Ot+QolcNA88oduSkxL27vaActf8TU6z59Tq0ytd4VdJGy1vqrzEMLH+0TWnknUU6gix2ZXnCo7AV6qZyDlnRwQG8JvWHS8NWjE+UltESZ3vQW7FykDqpsBm1sPXZgkSuvpo4G6CJl4BG8eVRJZLtDSwb0/U+GlLVX66jdhER6GfI9mj5d7ciW0PY/6g3iXS7JAVo18tGbuVEb0D2hc8qA7gmdaxojUsf/QvPKxtBh4p0SWnjGLZUi5eja1GEPXZwM4y2VJDlaCS3fRwvXHVGXSvpvhh2/sBStI61J9UulBmj591lXy+jZ1f86mEzSpuyq3ndsZ5LJBQCjAAAAAElFTkSuQmCC";
+			var html ='<img src="data:image/gif;base64,'+base64Code+'" />';
+			$("#imgWrap").html(html)
+		</script>
+	</body>
+</html>

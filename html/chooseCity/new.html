@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script src="../../js/libs/jquery-1.11.3.js" type="text/javascript" charset="utf-8"></script>
+		<script src="cityJson1.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var obj = []
+			//根据省编号排序
+			function sortarr(arr){
+			    for(i=0;i<arr.length-1;i++){
+			        for(j=0;j<arr.length-1-i;j++){
+			        	
+			            if(arr[j].id>arr[j+1].id){
+			                var temp=arr[j];
+			                arr[j]=arr[j+1];
+			                arr[j+1]=temp;
+			            }
+			            
+			        }
+			    }
+			    return arr;
+			}
+			var newProvince = sortarr(province);
+			//document.write(JSON.stringify(newProvince))
+			//省市区合一起
+			for(var i in newProvince){
+				var mm = newProvince[i].id;
+			  	var nn = newProvince[i].name ;
+			  	var obj2 = []
+		  		for(var j in newProvince[i].city){
+			    	 var aa = newProvince[i].city[j].id;
+			    	 var bb = newProvince[i].city[j].name;
+			    	 var obj3 = []
+			    	 for(var m in area){
+			    	 	if(area[m].pid == newProvince[i].city[j].id){
+			    	 		var xx = area[m].id;
+			    	 		var yy = area[m].name;
+			    	 		obj3.push({"value": xx,"text":yy});
+			    	 	}
+			    	 }
+			    	obj2.push({"value": aa,"text":bb,"children":obj3})
+				  }
+		  		obj.push({"value": mm,"text":nn,"children":obj2})
+			}
+			console.log(obj)
+			document.write(JSON.stringify(obj))
+			
+		</script>
+	</body>
+</html>

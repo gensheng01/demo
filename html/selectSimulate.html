@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.ruleConfigSelect{
+				clear: both;
+				height: 30px;
+				padding: 25px 25px 50px;
+			}
+			.fl{
+				float: left;
+			}
+			#selectBox1{
+				width: 100%;
+				height: 150px;
+				display: none;
+				overflow-y: auto;
+				position: absolute;
+				top: 32px;
+				left: 0;
+				border: 1px solid #ccc;
+				border-radius: 10px;
+			}
+			#senceId1{
+				position: relative;
+				width: 180px;
+			    height: 26px;
+			    border: 0;
+			    outline: none;
+			    margin: 1px 10px;
+			}
+			.seekSelect{
+				width: 60px;
+			    height: 26px;
+			    float: left;
+			    border-radius: 3px;
+			    color: #fff;
+			    text-align: center;
+			    background: #4b66a5;
+			    line-height: 26px;
+			    margin-top: 8px;
+			    margin-left: 8px;
+			}
+			.downSelectBox{
+				width: 200px;
+			    height: 30px;
+			    border-radius: 30px 30px;
+			    border: 1px solid #ccc;
+			    position: relative;
+			}
+			#selectBox1 p{
+				font-size: 12px;
+			    cursor: pointer;
+			    height: 30px;
+			    line-height: 30px;
+			    text-indent: 18px;
+			    overflow: hidden;
+			    text-overflow: ellipsis;
+			    white-space: nowrap;
+			    zoom: 1;
+			    border-bottom: 1px solid #ccc;
+			}
+			.hidden {
+			  display:none;
+			}
+			.in{
+				display: block;
+			}
+		</style>
+	</head>
+	<body>
+		 <div class="ruleConfigSelect">
+                <div class="downSelectBox fl">
+					<input type="text" id="senceId1" name="senceId1" value="" max-length="8" placeholder="请输入搜索内容" onchange="search1()">
+                    <div class="selectBox" id="selectBox1">
+                    	<p class="in">苹果</p>
+                    	<p class="in">香蕉</p>
+                    	<p class="in">巧克力111</p>
+                    	<p class="in">巧克力222</p>
+                    	<p class="in">巧克力333</p>
+                    	<p class="in">苹果3333</p>
+                    </div>
+                </div>
+                <a href="javaScript:search1();" class="seekSelect" onclick="">查询</a>
+            </div>
+            
+            <script src="../js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+            <script type="text/javascript">
+            	$("#selectBox1").on("click","p",function(){
+            		console.log($(this).html())
+            		$("#senceId").val($(this).html());
+            		$("#selectBox1").css("display","none")
+            	})
+            	
+            	function search1(){
+            		console.log($("#senceId1").val())
+            		$("#selectBox1").css("display","block")
+            	}
+            	
+            	$(window).click(function(){
+            		console.log(222)
+            		$("#selectBox1").toggle()
+            	})
+            	
+            	$("#senceId1").keyup(function(){
+            		$(this).data("id"," ")
+            		var thisVal = $(this).val();
+            		var searchSplit = thisVal.replace(/ /g, "'):containsi('")
+            		$.extend($.expr[':'], {
+					  'containsi': function(elem, i, match, array)
+					  {
+					    return (elem.textContent || elem.innerText || '').toLowerCase()
+					    .indexOf((match[3] || "").toLowerCase()) >= 0;
+					  }
+					});
+					    
+					    
+					    $("#selectBox1 p").not(":containsi('" + searchSplit + "')").each(function(e)   {
+					      $(this).addClass('hiding out').removeClass('in');
+					      setTimeout(function() {
+					          $('.out').addClass('hidden');
+					        }, 300);
+					    });
+					    
+					    $("#selectBox1 p:containsi('" + searchSplit + "')").each(function(e) {
+					      $(this).removeClass('hidden out').addClass('in');
+					      setTimeout(function() {
+					          $('.in').removeClass('hiding');
+					        }, 1);
+					    });
+					    console.log($("#selectBox1").height())
+					    if($("#selectBox1").height() < 10){
+					    	$("#selectBox1").css("border","0")
+					    }else{
+					    	$("#selectBox1").css("border","1px solid #ccc")
+					    }
+            	})
+            </script>
+            
+	</body>
+</html>

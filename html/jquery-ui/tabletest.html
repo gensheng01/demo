@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="jquery-ui.min.css" />
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			ul,
+			li,
+			p {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+			}
+			#chooseWrap{
+				width: 600px;
+				height: 30px;
+				margin: 0 auto;
+				position: relative;
+			}
+			#chooseNav {
+				width: 100%;
+				display: flex;
+				flex-direction: row;
+				align-items:center;
+				background: skyblue;
+			}
+			
+			#chooseNav li {
+				width: 100%;
+				height: 30px;
+				text-align: center;
+			}
+			
+			.chooseWrap {
+				padding: 20px;
+				overflow: hidden;
+			}
+			
+			.chooseActive {
+				background: pink;
+			}
+			
+			#chooseContList {
+				width: 100%;
+				background: pink;
+				position: absolute;
+				top: 30px;
+				left: 0;
+			}
+			.chooseItemList{
+				height: 200px;
+				display: none;
+				position: relative;
+				
+			}
+			.chooseItemList .closebox{
+				position: absolute;
+				right: 10px;
+				top: 10px;
+			}
+			.chooseItemList .closebox button{
+				display: block;
+				float: right;
+			}
+			.chooseItemList ul{
+				padding-top: 30px;
+				width: 100%;
+				height: 170px;
+				overflow: scroll;
+				z-index: 2;
+			}
+			.chooseItemList ul li{
+				width: 95%;
+				padding:5px 5%;
+			}
+			 /*滚动条样式*/
+	        ul::-webkit-scrollbar {/*滚动条整体样式*/
+	            width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
+	            height: 4px;
+	        }
+	        ul::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+	            border-radius: 5px;
+	            -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0);
+	            background: rgba(0,0,0,0);
+	        }
+	        ul::-webkit-scrollbar-track {/*滚动条里面轨道*/
+	            -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0);
+	            border-radius: 0;
+	            background: rgba(0,0,0,0);
+	        }
+	        
+	        #chooseShowWrap{
+	        	width: 580px;
+	        	margin: 0 auto;
+	        	padding:10px;
+	        }
+	        #chooseShowWrap ul{
+	        	width: 100%;
+	        	max-height: 800px;
+	        	overflow: scroll;
+	        }
+		</style>
+	</head>
+
+	<body>
+		<div id="chooseWrap">
+			<ul id="chooseNav">
+				<!--<li>内容一</li>
+				<li>内容二</li>
+				<li>内容三</li>
+				<li>内容四</li>-->
+			</ul>
+			<div id="chooseContList" class="chooseContList">
+				<!--<div class="chooseItemList">
+					<div class="closebox">
+						<button class="closeChoose">关闭</button>
+						<button class="surebtn">提交选中规则</button>
+					</div>
+					<ul>
+						<li>
+							<input type="checkbox" value="" />
+							<span>dfadsdfa发射点风格</span>
+						</li>
+					</ul>
+				</div>
+				<div class="chooseItemList">2222</div>
+				<div class="chooseItemList">3333</div>
+				<div class="chooseItemList">4444</div>-->
+			</div>
+		</div>
+		<div id="chooseShowWrap">
+			<ul>
+				<li></li>
+			</ul>
+		</div>
+
+		<script src="../../js/libs/jquery-1.11.3.js"></script>
+		<script src="jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="tabletest01.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+				//数据渲染
+				var itemhtml = '';
+				var navHtml = '';
+				var showHtml = '';
+				tabletest.map((item,index) => {
+					//导航栏数据
+					navHtml += '<li>'+item.title+'</li>';
+					showHtml += '<li><h3>'+item.title+'</h3></li>'
+					//对应item数据
+					itemhtml += '<div class="chooseItemList">';
+						itemhtml += '<div class="closebox">';
+							itemhtml += '<button class="closeChoose">关闭</button>';
+							itemhtml += '<button class="surebtn">提交选中规则</button>';
+						itemhtml += '</div>';
+						itemhtml += '<ul>';
+							item.children.map((mm,xx) => {
+								var check = ""
+								if(mm.type == true){
+									check = "checked";
+									showHtml += '<li>';
+										showHtml += '<input type="checkbox" value="'+mm.id+'"  '+check+'/>';
+										showHtml += '<span>'+mm.id+'&nbsp;&nbsp;&nbsp;&nbsp;'+mm.content+'</span>';
+									showHtml += '</li>';
+								}
+								itemhtml += '<li>';
+									itemhtml += '<input type="checkbox" value="'+mm.id+'"  '+check+'/>';
+									itemhtml += '<span>'+mm.id+'&nbsp;&nbsp;&nbsp;&nbsp;'+mm.content+'</span>';
+								itemhtml += '</li>';
+							});
+						itemhtml += '</ul>';
+					itemhtml += '</div>';
+				})
+				//选项大标题导航
+				$("#chooseNav").html(navHtml)
+				//选项内容框
+				$("#chooseContList").html(itemhtml);
+				//选中选项展示
+				$("#chooseShowWrap ul").html(showHtml)
+				
+				//table切换
+				$("#chooseNav").on("click","li",function() { //给a标签添加事件
+					var index = $(this).index(); //获取当前a标签的个数
+					$(this).parent().next().find(".chooseItemList").hide().eq(index).show(); //返回上一层，在下面查找css名为chooseItemList隐藏，然后选中的显示
+					$(this).addClass("chooseActive").siblings().removeClass("chooseActive"); //a标签显示，同辈元素隐藏
+				})
+				//关闭当前显示下拉框
+				$("#chooseContList").on("click",".closeChoose",function(){
+					$(this).parent().parent().fadeOut();
+					var ind = $(this).parent().parent().index()
+					$("#chooseNav li").eq(ind).removeClass("chooseActive");
+//					console.log(ind)
+				});
+				//提交当前选中项
+				$("#chooseContList").on("click",".surebtn",function(){
+					var con = $(this).parent().siblings().find("input[type='checkbox']:checked");
+					console.log(con.length)
+					var text = con.map(function(index,elem){
+						//打印选中input的value值
+						console.log($(elem).val())
+						return $(elem).val();
+					}).get().join(',');
+				});
+			
+			})
+			//启动拖动排序
+			$(function() {
+				$("#chooseShowWrap ul").sortable();
+				$("#chooseShowWrap ul").disableSelection();
+			});
+		</script>
+	</body>
+
+</html>

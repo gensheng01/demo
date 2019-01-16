@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="jquery-ui.min.css" />
+		<script src="../../js/libs/jquery-1.11.3.js" type="text/javascript" charset="utf-8"></script>
+		<script src="jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+			#sortable {
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+				width: 60%;
+			}
+			
+			#sortable li {
+				margin: 0 3px 3px 3px;
+				padding: 0.4em;
+				padding-left: 1.5em;
+				font-size: 1.4em;
+				height: 18px;
+			}
+			
+			#sortable li span {
+				position: absolute;
+				margin-left: -1.3em;
+			}
+		</style>
+		<script>
+			$(function() {
+				$("#sortable").sortable();
+				$("#sortable").disableSelection();
+			});
+		</script>
+	</head>
+
+	<body>
+		<ul id="sortable">
+		  <li class="ui-state-default">Item 1</li>
+		  <li class="ui-state-default">Item 2</li>
+		  <li class="ui-state-default">Item 3</li>
+		  <li class="ui-state-default">Item 4</li>
+		  <li class="ui-state-default">Item 5</li>
+		  <li class="ui-state-default">Item 6</li>
+		  <li class="ui-state-default">Item 7</li>
+		</ul>
+	</body>
+
+</html>

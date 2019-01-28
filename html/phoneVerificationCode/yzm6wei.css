@@ -1,0 +1,54 @@
+
+.pay-money{
+    color: #333333;
+    font-size: 0.6rem;
+    margin: 0.6rem 0;
+    font-weight: bold;
+}
+.pay-password{
+    /*width: 5.4rem;*/
+    height: 1.2rem;
+    /*border: 1px solid #999999;*/
+    margin: 0 auto;
+    position: relative;
+}
+.pay-password .real-ipt{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1.2rem;
+    line-height: 1.2rem;
+    opacity: 0;
+    z-index: 3;
+}
+.pay-password .surface-ipts{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1.2rem;
+    line-height: 1.2rem;
+    z-index: 1;
+    overflow: hidden;
+}
+.pay-password .surface-ipts .surface-ipt{
+    height: 1.2rem;
+    line-height: 1.2rem;
+    /*display: flex;*/
+    justify-content: space-between;
+}
+.pay-password .surface-ipts .surface-ipt input{
+    width: 0.65rem;
+    height: 0.9rem;
+    /*margin:0  0.1rem;*/
+    line-height: 0.9rem;
+    border: 0;
+    /*border-right: 1px solid #999999;*/
+    color: #333333;
+    font-size: 0.6rem;
+    text-align: center;
+    padding: 0;
+    background: url(ic_rectangle@2x.png) no-repeat;
+    background-size: 100% 100%;
+}

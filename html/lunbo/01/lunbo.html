@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title> </title>
+
+	<style>
+	*{margin:0;padding:0;}
+		#div1{width:500px;height:300px;position:relative;overflow:hidden}
+		#ul1{position:absolute;left:0;}
+		#ul1 li{
+			width:500px;height:300px;
+			list-style:none;
+			text-align:center;line-height:300px;color:#fff;
+			float:left;
+		}
+	</style>
+	<script src="move.js"></script>
+	<script>
+	
+	window.onload=function(){
+		var ul=document.getElementById('ul1');
+		var li=ul.getElementsByTagName('li');
+		
+		var cloneLi = li[0].cloneNode(true)
+		ul.appendChild(cloneLi);
+		
+		ul.style.width= li.length*li[0].offsetWidth + "px";
+		
+		
+		var index = 0;//li的下标
+		var z_index =  0;
+		setInterval(function(){
+			if(index == li.length-1){
+				index = 1;
+			}else{
+				index ++;
+			}
+			console.log(index);
+		//ul.style.left= - index*li[0].offsetWidth +"px";
+		
+		   move(ul,"left", -index*li[0].offsetWidth);
+			
+		},1000)
+	}
+
+	</script>
+</head>
+<body>
+	<div id="div1">
+		<ul id="ul1">
+			<li style="background:#f00;z-index:1;">11111</li>
+			<li style="background:#0f0">22222</li>
+			<li style="background:#00f">33333</li>
+			<li style="background:yellow">44444</li>
+		</ul>
+	</div>
+</body>
+</html>

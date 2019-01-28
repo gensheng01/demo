@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.error{
+				color: #f00;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrap">
+			<p>
+				<label>中文名</label><input type="text" value=""/>
+				<span id="" class="error"></span>
+			</p>
+			<p>
+				<label>手机号</label><input id="phoneNum" type="text" value="" onchange="checkPhoneNum()" />
+				<span id="phoneNumError" class="error"></span>
+			</p>
+			<p>
+				<label>银行卡号</label><input type="text" value="" />
+				<span id="" class="error"></span>
+			</p>
+			<p>
+				<label>邮箱</label><input type="text" value="" />
+				<span id="" class="error"></span>
+			</p>
+		</div>
+		<script src="../js/libs/jquery-1.11.3.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//手机号输入验证
+		    function checkPhoneNum() {
+		        var phone = $("#phoneNum").val().replace(/\s+/g, "");
+		        var regPhone = /^1[3|4|5|6|7|8|9][0-9]\d{4,8}$/;
+		        //console.log(phone);
+		        if (phone != "") {
+		            if (!(regPhone.test(phone)) || phone.length < 11) {
+		                $("#phoneNumError").html("手机号码有误，请重填");
+		            } else {
+		                $("#phoneNumError").html("");
+		            }
+		        } else {
+		            $("#phoneNumError").html("手机号不能为空");
+		        }
+		
+		    }
+		</script>
+	</body>
+</html>

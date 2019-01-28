@@ -6,6 +6,10 @@
         <link rel="stylesheet" type="text/css" href="viewer.css"/>
         
         <style type="text/css">
+        	*{
+        		margin: 0;
+        		padding: 0;
+        	}
             .img-list{
                 clear: both;
             }
@@ -24,22 +28,32 @@
         </style>
     </head>
     <body>
-        <ul id="images1" class="img-list">
+        <ul class="images1 img-list">
             <li>
-                <img src="../img/0.jpg"/>
+                <img src="../../images/01.png"/>
+            </li>
+            <li>
+                <img src="../../images/02.png"/>
+            </li>
+        </ul>
+        <ul class="images1 img-list">
+            <li>
+                <img src="../../images/01.png"/>
+            </li>
+            <li>
+                <img src="../../images/02.png"/>
             </li>
         </ul>
         
     </body>
-    <script src="../js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../js/libs/jquery-1.11.3.js" type="text/javascript" charset="utf-8"></script>
     <script src="viewer.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
     	
-        $('#images1').viewer({
+        $('.images1').viewer({
+        	"tooltip": false,//显示缩放百分比
+        	"scalable":false,//图片是否可翻转
 		    url: 'data-original',
 		});
-		$("#btn").click(function(){
-			
-		})
     </script>
 </html>

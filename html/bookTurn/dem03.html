@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>CSS3幻灯片3D切换特效</title>
+		<style>
+			#box {
+				width: 500px;
+				height: 455px;
+				background: url(images/j0.jpg) no-repeat;
+				margin: 50px auto;
+				position: relative;
+				perspective: 1200px;
+				font-family: "microsoft yahei";
+			}
+			
+			#box .pag1 {
+				width: 50%;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				right: 0;
+				transform-style: preserve-3d;
+				transistion: 1s all ease;
+				z-index: 2;
+				transform-origin: left center;
+			}
+			
+			#box .pag1 span {
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			
+			.front {
+				background: url(images/j0.jpg) no-repeat right top;
+				transform: translateZ(1.1px);
+			}
+			
+			.back {
+				background: url(images/j1.jpg) no-repeat left top;
+				transform: translateZ(-1.1px) scale(-1, 1);
+			}
+			
+			
+			.page0 {
+				width: 50%;
+				position: absolute;
+				left: 0;
+				top: 0;
+				height: 100%;
+				background: url(images/j3.jpg) no-repeat left top;
+				transform: rotatey(0deg);
+				z-index: 1;
+			}
+			
+			.pag2 {
+				width: 50%;
+				position: absolute;
+				right: 0;
+				top: 0;
+				height: 100%;
+				background: url(images/j1.jpg) no-repeat right top;
+				z-index: 1;
+			}
+			h3{
+				margin: 0;
+				padding: 0;
+				height: 50px;
+				line-height: 50px;
+				font-size: 24px;
+				color: #fff;
+				
+			}
+			.hh{
+				width: 100%;
+				position: absolute;
+				transform-style: preserve-3d;
+				transistion: 1s all ease;
+				transform-origin: left center;
+				top: 0;
+				left: 0;
+			}
+			.hh1{
+				width: 200%;
+				margin-left: -100%;
+			}
+			.topBtn{
+				width: 100px;
+				height: 50px;
+				background: orange;
+				color: #fff;
+				text-align: center;
+				line-height: 50px;
+				position: fixed;
+				z-index: 10;
+			}
+			.leftBtn{
+				left: 10px;
+				top: 50%;
+			}
+			.rightBtn{
+				right: 10px;
+				top: 50%;
+			}
+		</style>
+		 <script type="text/javascript">
+	        // 当浏览器窗口大小发生变化的时候 执行什么事情
+	        window.onresize = resizePage;
+	        resizePage();
+	
+	        function resizePage() {
+	            // 当前屏幕的宽度
+	            var current = document.documentElement.clientWidth;
+	            document.documentElement.style.fontSize = current * 100 / 750 + 'px';
+	        }
+	    </script>
+		<script>
+			var innerH = [
+			'内容1111内容1111内容1111内容1111内容1111内容1111内容1111内容1111', 
+			'内容2222内容2222内容2222内容2222内容2222内容2222内容2222内容2222内容2222内容2222', 
+			'内容3333内容3333内容3333内容3333内容3333内容3333内容3333内容3333内容3333内容3333内容3333', 
+			'内容4444内容4444内容4444内容4444内容4444内容4444内容4444内容4444内容4444内容4444内容4444内容4444'
+			]
+			
+			var innerH2 = [
+			'<h3 class="hh1">内容1111内容1111内容1111内容1111内容1111内容1111内容1111内容1111内容1111内容1111内容1111内容1111内容1111内容1111</h3>', 
+			'<h3 class="hh1">内容2222内容2222内容2222内容2222内容2222内容2222内容2222内容2222内容2222内容2222内容2222内容2222</h3>', 
+			'<h3 class="hh1">内容3333内容3333内容3333内容3333内容3333内容3333内容3333内容3333内容3333内容3333内容3333</h3>', 
+			'<h3 class="hh1">内容4444内容4444内容4444内容4444内容4444内容4444内容4444内容4444内容4444内容4444</h3>', 
+			'<h3 class="hh1">内容5555内容5555内容5555内容5555内容5555内容5555内容5555内容5555内容5555内容5555内容5555内容5555内容5555内容5555内容5555</h3>']
+			
+			document.addEventListener('DOMContentLoaded', function() {
+				var oBox = document.getElementById('box');
+				var oPag = document.querySelector('.pag1');
+				var oFront = document.querySelector('.front');
+				var oBack = document.querySelector('.back');
+				var oPag2 = document.querySelector('.pag2');
+				var oHh1 = document.querySelector('.hh1')
+				var oLeftBtn = document.querySelector('.leftBtn')
+				var oRightBtn = document.querySelector('.rightBtn')
+				var oPage0 = document.querySelector('.page0')
+
+				var iNow = 0;
+				var bReady = true;
+				var maxLen = innerH.length;
+				console.log(maxLen)
+				oRightBtn.onclick = function() {
+					if(bReady == false) return;
+					bReady = false;
+					console.log(iNow)
+					if(iNow > maxLen){
+						console.log(000)
+						bReady = true;
+						return;
+					}
+					iNow++;
+					var n = iNow % 4;
+					var m = (iNow + 1) % 4;
+					var y = (iNow - 1) % 4;
+//					oHh1.style.backgroundImage = 'url(images/j' + y + '.jpg)';
+					oPag.style.right = '0';
+					oPag.style.transformOrigin = 'left center';
+					oPag.style.transition = '1s all ease';
+					oPag.style.transform = 'rotateY(-180deg)';
+//					oHh.style.transition = '1s all ease';
+//					oHh.style.transform = 'rotateY(-90deg)';
+					
+					console.log(n + "------" + m)
+					oPag.addEventListener('transitionend', function() {
+						oPag.style.transition = 'none';
+						oPag.style.transform = 'rotateY(0deg)';
+//						oHh.style.transition = 'none';
+//						oHh.style.transform = 'rotateY(0deg)';
+//						oPage0.style.backgroundImage = 'url(images/j' + y + '.jpg)';
+						oFront.style.backgroundImage = oBox.style.backgroundImage = 'url(images/j' + n + '.jpg)'; //4有几张banner就%几
+						oBack.style.backgroundImage = oPag2.style.backgroundImage = 'url(images/j' + m + '.jpg)';
+						bReady = true;
+					}, false);
+				}
+				
+				oLeftBtn.onclick = function() {
+					if(bReady == false) return;
+					bReady = false;
+					console.log(iNow)
+					if(iNow-1 < 0){
+						console.log(000)
+						iNow = 0;
+						bReady = true;
+						return;
+					}
+					iNow--;
+					var n = iNow % 4;
+					var m = (iNow + 1) % 4;
+					var y = (iNow - 1) % 4;
+					if(y<0){
+						y = 0
+					}
+//					oHh1.style.backgroundImage = 'url(images/j' + m + '.jpg)';
+					oPag.style.transition = '1s all ease';
+					oPag.style.transform = 'rotateY(180deg)';
+					oPag.addEventListener('transitionend', function() {
+						oPag.style.transition = 'none';
+						oPag.style.transform = 'rotateY(0deg)';
+
+//						oPage0.style.backgroundImage = 'url(images/j' + y + '.jpg)';
+						oFront.style.backgroundImage = oBox.style.backgroundImage = 'url(images/j' + n + '.jpg)'; //4有几张banner就%几
+						oBack.style.backgroundImage = oPag2.style.backgroundImage = 'url(images/j' + m + '.jpg)';
+						bReady = true;
+					}, false);
+				}
+				
+
+			})
+		</script>
+	</head>
+
+	<body>
+		<div id="box">
+			<!--<h3 class="hh">内容111111</h3>-->
+			<!--<div class="page0"></div>-->
+			<div class="pag1">
+				<span class="front"></span>
+				<span class="back"></span>
+			</div>
+			<div class="pag2"></div>
+		</div>
+		<button class="topBtn leftBtn">上一页</button>
+		<button class="topBtn rightBtn">下一页</button>
+
+	</body>
+
+</html>

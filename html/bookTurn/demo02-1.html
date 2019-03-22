@@ -1,0 +1,229 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<style>
+			.book {
+				/*width: 460px;*/
+				height: 300px;
+				position: relative;
+				-webkit-transform-style: preserve-3d;
+				-moz-transform-style: preserve-3d;
+				-ms-transform-style: preserve-3d;
+				transform-style: preserve-3d;
+				/*transform: rotatex(30deg);*/
+			}
+			
+			.page {
+				width: 50%;
+				height: 300px;
+				/*border: 1px solid #666;*/
+				position: absolute;
+				right: 0;
+				transform-origin: left;
+				transform-style: preserve-3d;
+				backface-visibility: hidden;
+				font-size: 60px;
+				text-align: center;
+				line-height: 300px;
+			}
+			
+			.page span {
+				display: block;
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				background-color: #00FFFF;
+			}
+			
+			.page span:nth-child(2) {
+				transform: rotatey(-180deg);
+				backface-visibility: hidden;
+			}
+			
+			.textIn {
+				width: 100%;
+				height: 30px;
+				background: #f00;
+				position: absolute;
+				bottom: 0;
+				left: 0;
+			}
+			/*以下两个动画可以只使用第一个，animation中有reverse，可以反向执行动画，  
+            使用时需要在JS中点击上一页时添加改属性值*/
+			/*翻书下一页的动画*/
+			
+			@keyframes page {
+				0% {
+					transform: rotatey(0deg);
+				}
+				100% {
+					transform: rotatey(-180deg);
+					z-index: 10;
+				}
+			}
+			/*翻书上一页的动画*/
+			
+			@keyframes page1 {
+				0% {
+					transform: rotatey(-180deg);
+					z-index: 10;
+				}
+				100% {
+					transform: rotatey(0deg);
+				}
+			}
+			.topBtn{
+				width: 100px;
+				height: 50px;
+				background: orange;
+				color: #fff;
+				text-align: center;
+				line-height: 50px;
+				position: fixed;
+				z-index: 10;
+			}
+			#before{
+				left: 10px;
+				top: 50%;
+			}
+			#after{
+				right: 10px;
+				top: 50%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!-- 所展示的书的内容 -->
+		<div class="book">
+			<!--<div class="page">
+				<span style="background: url(images/j1.jpg) no-repeat right center;">1</span>
+				<span style="background: url(images/j2.jpg) no-repeat left center;">2</span>
+			</div>
+			<div class="page">
+				<span style="background: url(images/j2.jpg) no-repeat right center;">3</span>
+				<span style="background: url(images/j3.jpg) no-repeat left center;">4</span>
+			</div>
+
+			<div class="page">
+				<span style="background: url(images/j3.jpg) no-repeat right center;">5</span>
+				<span style="background: url(images/j1.jpg) no-repeat left center;">6</span>
+			</div>
+
+			<div class="page">
+				<span>7</span>
+				<span>8</span>
+			</div>
+
+			<div class="page">
+				<span>9</span>
+				<span>10</span>
+			</div>
+
+			<div class="page">
+				<span>11</span>
+				<span>12</span>
+			</div>
+
+			<div class="page">
+				<span>13</span>
+				<span>14</span>
+			</div>
+
+			<div class="page">
+				<span>15</span>
+				<span>16</span>
+			</div>
+
+			<div class="page">
+				<span>17</span>
+				<span>18</span>
+			</div>
+
+			<div class="page">
+				<span>19</span>
+				<span>20</span>
+			</div>-->
+		</div>
+
+		<!-- 用来控制上一页和下一页操作 -->
+		<input class="topBtn" type="button" value="上一页" id="before" />
+		<input class="topBtn" type="button" value="下一页" id="after" />
+		<script src="../../js/libs/jquery-1.11.3.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			 $.ajax({
+	            type: "GET",
+	            url: "imgUrl.json",
+	            dataType: "json",
+	            success: function(data){
+	                console.log(data) 
+	                var html = '';
+	                var datalen = data.length;
+	                for (var i = 1; i < datalen; i++){
+	                	var imgurl1 = data[i-1].imgurl;
+	                	var imgurl2 = data[i].imgurl;
+	                	var n = i+1
+	                	var zIn = datalen - i;
+	                	console.log(imgurl2)
+	                	html += '<div class="page" style="z-index:'+zIn+'">';
+	               		html += '<span style="background: url('+imgurl1+') no-repeat right center;background-size: 200% 100%;">';
+				      		html += ''+data[i-1].text+'';
+				      	html += '</span>';
+				      	html += '<span style="background: url('+imgurl2+') no-repeat left center;background-size: 200% 100%;">';
+				      		html += ''+data[i].audio+'';
+				      	html += '</span>';
+				      	html += '</div>'
+	                }
+	                
+//	                	html += '<div class="page">';
+//	               		html += '<span style="background: url('+data[datalen-1].imgurl+') no-repeat right center;background-size: 200% 100%;">';
+//				      		html += ''+data[datalen-1].text+'';
+//				      	html += '</span>';
+//				      	html += '<span style="background: url('+data[datalen].imgurl+') no-repeat left center;background-size: 200% 100%;">';
+//				      		html += ''+data[datalen].audio+'';
+//				      	html += '</span>';
+//				      	html += '</div>'
+	                
+	                $(".book").html(html)
+
+	            }
+	         });
+		</script>
+		<script type="text/javascript">
+			var before = document.querySelector("#before");
+			var after = document.querySelector("#after");
+			var book = document.querySelector(".book");
+			var page = document.getElementsByClassName("page");
+			rotate();
+
+			function rotate() {
+				var middle = 0;
+
+//				for(var z = 0; z < book.children.length; z++) {
+//					page[z].style.zIndex = book.children.length - z;
+//				}
+				after.onclick = function() {
+					if(middle != book.children.length) {
+						page[middle].style.animation = "page 1s linear 1 forwards";
+						middle++;
+					} else {
+						middle = book.children.length;
+					}
+				};
+				before.onclick = function() {
+					if(middle != 0) {
+						page[middle - 1].style.animation = "page1 1s linear 1 forwards";
+						middle--;
+					} else {
+						middle = 0;
+					}
+				}
+			}
+		</script>
+	</body>
+
+</html>

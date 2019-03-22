@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;padding: 0;
+			}
+			ul,li{
+				list-style: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="boxwrap">
+			<script  id="box" type="text/template">
+				<# if(dataHtml.length){ #>
+					<ul>
+						<# dataHtml.forEach(function(data){ #>
+							<# if(data.show){ #>
+								<li><#= data.text #></li>
+							<# } #>
+		                <# }) #>
+					</ul>
+				<# } #>
+			</script>
+		</div>
+		
+		
+		
+		<script src="ejs.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var dataList = [
+		      {"show":true,"text":"第一页的内容11111111"},
+		      {"show":false,"text":"第二页的内容2222222222"},
+		      {"show":true,"text":"第三页的内容333333333333"}
+		    ]
+			
+			var users = document.getElementById("box").innerHTML;
+//	        var namesArr = ['zhangsan','lisi','wangwu']; // 从接口中获取
+	        var html  = ejs.render(users,{dataHtml:dataList},{delimiter:'#'});
+	        document.getElementById("boxwrap").innerHTML = html;
+		</script>
+	</body>
+</html>

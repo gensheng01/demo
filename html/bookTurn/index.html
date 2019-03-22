@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>半翻页效果-pengbo</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0
+			}
+			
+			body,
+			html {
+				/*防止抖动*/
+				overflow: hidden;
+			}
+			
+			#box {
+				width: 700px;
+				height: 400px;
+				background: url("../../images/j1.jpg") no-repeat;
+				background-size: 100% 100%;
+				margin: 100px auto;
+				position: relative;
+			}
+			
+			#box .page {
+				/*在box的右半部分*/
+				width: 50%;
+				height: 100%;
+				top: 0;
+				right: 0;
+				position: absolute;
+				/*开启3d模式*/
+				transform-style: preserve-3d;
+				/*设定旋转中心*/
+				transform-origin: left center;
+				transition: 1s all ease;
+				z-index: 2;
+				/*初始化*/
+				transform: perspective(800px) rotateY(0deg);
+			}
+			
+			#box .page div {
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				left: 0;
+				top: 0;
+			}
+			
+			#box .page .front {
+				/*显示图片的右半部分*/
+				background: url("../../images/j2.jpg") right top no-repeat;
+				background-size: 100% 100%;
+				/*不显示背面*/
+				backface-visibility: hidden;
+				/*层级比背面高*/
+				z-index: 2;
+			}
+			
+			#box .page .back {
+				background: url("../../images/j1.jpg") left top no-repeat;
+				background-size: 100% 100%;
+				z-index: 1;
+				transform: scale(-1, 1);
+			}
+			
+			#box .page2 {
+				width: 50%;
+				height: 100%;
+				position: absolute;
+				right: 0;
+				top: 0;
+				background: url("../../images/j1.jpg") right top no-repeat;
+				background-size: 100% 100%;
+				z-index: 1;
+			}
+			.front,.back,.page2{
+				background-size: 100% 100%;
+			}
+		</style>
+
+	</head>
+
+	<body>
+
+		<div id="box">
+			<div class="page">
+				<div class="front">内容00000</div>
+				<div class="back"></div>
+			</div>
+			<div class="page2"></div>
+		</div>
+		<script type="text/javascript">
+			var innerH = ['<h3>内容1111</h3>', '<h3>内容2222</h3>', '<h3>内容3333</h3>', '<h3>内容4444</h3>', '<h3>内容5555</h3>']
+			document.addEventListener('DOMContentLoaded', function() {
+				var oBox = document.getElementById('box');
+				var oPage = document.querySelector('.page');
+				var oPage2 = document.querySelector('.page2');
+				var oFront = document.querySelector('.front');
+				var oBack = document.querySelector('.back');
+				var iNow = 0;
+				var bReady = true;
+				oFront.onclick = function() {
+					if(bReady == false) {
+						return;
+					}
+					bReady = false;
+					iNow++;
+					oPage.style.transition = '1s all ease';
+					oPage.style.WebkitTransform = 'perspective(800px) rotateY(-180deg)';
+				};
+				oPage.addEventListener('transitionend', function() {
+					if(iNow > 4){
+						return
+					}
+					proINow = iNow 
+					nextINow = iNow + 1
+					console.log(proINow)
+					console.log(nextINow)
+					
+					//1.瞬间拉回
+					oPage.style.transition = 'none';
+					oPage.style.WebkitTransform = 'perspective(800px) rotateY(0deg)';
+					//2.换图
+					oBox.style.background = 'url("../../images/j' + proINow + '.jpg") no-repeat';
+					
+					oFront.style.background = 'url("../../images/j' + proINow + '.jpg") right top no-repeat';
+					oFront.innerHTML = innerH[nextINow]
+					
+					oBack.style.background = 'url("../../images/j' + nextINow + '.jpg") left top no-repeat';
+					oPage2.style.background = 'url("../../images/j' + nextINow + '.jpg") right top no-repeat';
+					
+					bReady = true;
+				}, false);
+			}, false);
+		</script>
+
+	</body>
+
+</html>

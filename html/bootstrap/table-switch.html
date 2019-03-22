@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../../js/libs/bootstrap-3.3.7-dist/css/bootstrap.css" />
+		<style type="text/css">
+			#ratingTab{
+				display: flex;
+			}
+			#ratingTab li{
+				flex: 1;
+				text-align: center;
+			}
+		</style>
+	</head>
+
+	<body>
+		<ul id="ratingTab" class="nav nav-tabs">
+			<li class="active">
+				<a href="#rationItem1" data-toggle="tab">
+					3~6岁
+				</a>
+			</li>
+			<li>
+				<a href="#rationItem2" data-toggle="tab">6~12岁</a>
+			</li>
+			<li>
+				<a href="#rationItem3" data-toggle="tab">13~17岁</a>
+			</li>
+			<li>
+				<a href="#rationItem4" data-toggle="tab">17~</a>
+			</li>
+		</ul>
+		<div id="ratingTabContent" class="tab-content">
+			<div class="tab-pane fade in active" id="rationItem1">
+				<p>3~6岁</p>
+			</div>
+			<div class="tab-pane fade" id="rationItem2">
+				<p>6~12岁</p>
+			</div>
+			<div class="tab-pane fade" id="rationItem3">
+				<p>13~17岁</p>
+			</div>
+			<div class="tab-pane fade" id="rationItem4">
+				<p>17~</p>
+			</div>
+		</div>
+
+		<script src="../../js/libs/jquery-1.11.3.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/libs/bootstrap-3.3.7-dist/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

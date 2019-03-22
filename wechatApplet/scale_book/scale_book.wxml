@@ -1,0 +1,17 @@
+<!--pages/scale_book/scale_book.wxml-->
+<view class='image-wrap ' >
+  <!-- <image style=" margin-top: -{{scaleTop}}px;  margin-left: -{{scaleLeft}}px;" class='scale-image {{ imageScale ? "scale-bigger" : "scale-small" }}' src='../turn_page/img1.jpg'></image> -->
+
+  <view  style='margin-top: -{{scaleTop}}px;margin-left: -{{scaleLeft}}px;' class='scale-image {{ imageScale ? "scale-bigger" : "scale-small" }}'>
+    <view class='pageitem pageone' style="background: url(../turn_page/img1.jpg) no-repeat right center;background-size: 200% 100%;"></view>
+      <view class='pageitem pagetwo' style="background: url(../turn_page/img1.jpg) no-repeat left center;background-size: 200% 100%;"></view>
+
+
+      <view class='top-box top-box0' data-classname = 'top-box0' bindtap='scaleClick' ></view>
+  <view class='top-box top-box1' data-classname = 'top-box1' bindtap='scaleClick' ></view>
+  <view class='top-box top-box2' data-classname = 'top-box2' bindtap='scaleClick' ></view>
+  <view class='top-box top-box3' data-classname = 'top-box3' bindtap='scaleClick' ></view>
+  </view>
+
+  
+</view>

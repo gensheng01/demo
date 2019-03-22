@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>放大镜</title>
+	<style type="text/css">
+		#fix{
+            position: absolute;
+            left: 100px;
+            top: 150px;
+			width: 300px;
+			height: 188px;
+			border:2px solid blue;
+		}
+		img{
+			width: 100%;
+		}
+		#big{
+			position: absolute;
+            left: 450px;
+            top: 100px;
+			width: 400px;
+			height: 400px;
+			border:2px solid blue;
+            background-color: white;
+            opacity: 1;
+            overflow: hidden;
+            display: none;
+		}
+		#move{
+			  width: 70px;
+		      height: 70px;
+		      background-color: blue;
+		      opacity: 0.2;
+		      position: absolute;
+		      top: 0px;
+		      left: 0px;
+		      display: none;
+		}
+		#b{
+			  background-image: url(../images/j1.jpg);
+		      width: 1700px;
+		      background-repeat: no-repeat;
+		      background-size: cover;
+		      position: relative;
+		}
+	</style>
+</head>
+<body>
+	<div id="fix">
+		<div id="move"></div>
+		<img src="../images/j1.jpg" id="total">
+	</div>
+	<div id="big">
+		<img src="../images/j1.jpg" id="b">
+	</div>
+	<script type="text/javascript">
+		var move=document.getElementById('move');
+		var fix=document.getElementById('fix');
+        var big=document.getElementById('big');
+        var big_img=document.getElementById('b');
+		fix.onmouseover=function () {
+			big.style.display="block";
+			move.style.display="block";
+			move.style.cursor="crosshair";
+		}
+		fix.onmouseout=function () {
+			big.style.display="none";
+			move.style.display="none";
+		}
+		function setEvent(dom, event, fun) {
+	       
+	        dom.addEventListener(event, fun, false);
+	        
+        }
+ 
+		setEvent(fix, 'mousemove', function(e){
+			var scrollTop = document.body.scrollTop;
+	        var scrollLeft =  document.body.scrollLeft;
+	        var x = ((event.clientX + scrollLeft) - fix.offsetLeft) - move.offsetWidth/2;
+        	var y = ((event.clientY + scrollTop) - fix.offsetTop) -  move.offsetHeight/2;
+ 
+        	if(x < 0) {
+	            x = 0;
+	        }
+	        else if(x > fix.clientWidth - move.offsetWidth) {
+	            x = fix.clientWidth - move.offsetWidth
+	        }
+	        if(y < 0) {
+	            y = 0;
+	        }
+	        else if(y > fix.clientHeight - move.offsetHeight) {
+	            y = fix.clientHeight - move.offsetHeight;
+	        }
+	        var scope = 1704/304;
+	        var img_x = -(x * scope);
+	        var img_y = -(y * scope);
+ 
+	        move.style.left= x + "px";
+	        move.style.top = y + "px";
+	        big_img.style.left = img_x + "px";
+	        big_img.style.top = img_y + "px";
+	    });
+	</script>
+</body>
+</html>

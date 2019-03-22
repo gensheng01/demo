@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.wx-guide-bg{
+			    display:none;
+			    width:100%;
+			    height:100%;
+			    position:fixed;
+			    z-index:100000;
+			    background:rgba(0,0,0,0.4);
+			}
+			.wx-guide{
+			    display:none;
+			    width:100%;
+			    height:100%;
+			    position:fixed;
+			    z-index:100001;
+			}
+			.share-box{
+				width: 50px;
+				height: 50px;
+			}
+			.share-box img{
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<%-- 微信指引弹框 --%>
+        <div class="wx-guide-bg" style="display:none"></div>
+        <div class="wx-guide" style="display:none">
+            <img src="myGuide.png">
+            <p>点击右上角按钮,分享给朋友或朋友圈!</p>
+        </div>
+		
+        <div class="share-box">
+            <img onclick="call()" class="share-wx" src="wxShare.png" />
+        </div>
+		
+		
+		<script src="../../js/libs/jquery-1.11.3.js" type="text/javascript" charset="utf-8"></script>
+		<!--UC QQ等浏览器分享引用nativeShare.js-->
+		<script src="nativeShare/nativeShare.js" type="text/javascript" charset="utf-8"></script>
+		<script src="jweixin-1.0.0.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function () {
+				//提前配置分享链接
+		  		runWechatApi();
+		  		//如果是微信浏览器打开显示指引，否者调用浏览器分享
+			    wxShare();
+			    
+			    wx.config({
+		            debug: false,
+		            appId: "${wxConfig.appId}",
+		            timestamp: "${wxConfig.timestamp}",
+		            nonceStr: "${wxConfig.nonceStr}",
+		            signature: "${wxConfig.signature}",
+		            url: encodeURIComponent(location.href.split('#')[0]),
+		            jsApiList: ['checkJsApi', 'onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo', 'onMenuShareQZone'] // 功能列表，我们要使用JS-SDK的什么功能
+	            });
+		  	});
+			
+			var nativeShare = new NativeShare();
+			var shareData = {
+				title: competitionForwardTitle,
+				desc: competitionForwardContent,
+				// 如果是微信该link的域名必须要在微信后台配置的安全域名之内的。
+				link: location.protocol + '//' + location.host + '/wxShare?share=1&target_page=student/competition&competitionId=' + competitionId + '&type=look&competitionType=' + competitionType + '&groupId=' + groupId + '&oldStudentId=' + studentId,
+				icon: location.protocol + '//' + location.host + '/assets/images/108.png', // 分享图标
+				// 不要过于依赖以下两个回调，很多浏览器是不支持的
+				success: function() {
+					//alert('success')
+				},
+				fail: function() {
+					//alert('fail')
+				}
+			}
+			nativeShare.setShareData(shareData)
+			//监测当前浏览器是否支持NativeShare
+			function call(command) {
+				try {
+					nativeShare.call(command);
+				} catch(err) {
+					// 如果不支持，你可以在这里做降级处理
+					if(err.message.indexOf('not support') != -1) {
+						toastr.warning('Current browser do not support direct sharing, please use native browser to share');
+					}
+					return;
+				}
+				toastr.warning('Current browser do not support direct sharing, please use native browser to share');
+			}
+
+			function runWechatApi() {
+				wx.ready(function() {
+					// 获取"分享到朋友圈"按钮点击状态及自定义分享内容接口
+					wx.onMenuShareTimeline({
+						title: competitionForwardTitle,// 分享标题
+						desc: competitionForwardContent,// 分享描述
+						link: location.protocol + '//' + location.host + '/wxShare?share=1&target_page=student/competition&competitionId=' + competitionId + '&type=look&competitionType=' + competitionType + '&groupId=' + groupId + '&oldStudentId=' + studentId,
+						// link: location.protocol + '//' + location.host + '/wxShare?target_page=competition&competitionId=1&type=look&competitionType=1',
+						imgUrl: javaScript_Web_Server_Name + '/assets/images/108.png', // 分享图标
+						success: function() {
+							// alert(111)
+						},
+						cancel: function() {
+							// 用户取消分享后执行的回调函数
+							//alert("cancel");
+						},
+						fail: function(res) {
+							//alert(JSON.stringify(res));
+						}
+					});
+
+					// 获取"分享给朋友"按钮点击状态及自定义分享内容接口
+					wx.onMenuShareAppMessage({
+						title: competitionForwardTitle,// 分享标题
+						desc: competitionForwardContent,// 分享描述
+						link: location.protocol + '//' + location.host + '/wxShare?share=1&target_page=student/competition&competitionId=' + competitionId + '&type=look&competitionType=' + competitionType + '&groupId=' + groupId + '&oldStudentId=' + studentId,
+						imgUrl: location.protocol + '//' + location.host + '/assets/images/108.png', // 分享图标
+						type: 'link', // 分享类型,music、video或link，不填默认为link
+						success: function() {
+							// alert(222)
+							// 用户确认分享后执行的回调函数
+						},
+						cancel: function() {
+							// 用户取消分享后执行的回调函数
+						},
+						fail: function(res) {
+							//alert(JSON.stringify(res));
+						}
+					});
+
+					wx.error(function(res) {
+						// config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+						//alert("errorMSG:"+res);
+					});
+				});
+			}
+			
+			function wxShare(){
+			    var curSystemType=getUserAgent();
+			    if(curSystemType == 'weixin'){
+			        $('.share-box').on('click','.share-wx',function(){   
+			            $('.wx-guide-bg').show();
+			            $('.wx-guide').show();
+			        })
+			    }else{
+			        $('.share-box').on('click','.share-wx',function(){   
+			            call();
+			        })
+			    }
+			}
+		</script>
+	</body>
+
+</html>

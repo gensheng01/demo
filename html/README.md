@@ -1,4 +1,4 @@
-# selectSimulate.html 前段信息筛选功能
+# selectSimulate.html 前端信息筛选功能
 
 # judgingMobile.html 当前设备判断
 
@@ -20,9 +20,9 @@
 
 # navTable 抽屉菜单
 
-#shoppingShow.html 商城放大镜
+# shoppingShow.html 商城放大镜
 
-#EJS ejs模板用法
+# EJS ejs模板用法
 
 #
 

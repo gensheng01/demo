@@ -24,13 +24,13 @@
 
 # EJS ejs模板用法
 
-#
+# wxShare h5分享到微信
 
-#
+# Echart Echart图表
 
-#
+# bootstrap  demo
 
-#
+#textShowOrHide 多余文字的显示与隐藏
 
 #
 

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>jQuery文本段落展开和折叠效果</title>
+	<style>
+	</style>
+	<script type="text/javascript" src="../js/libs/jquery-1.11.3.js"></script>
+	<script type="text/javascript">
+		window.onload = function() {
+			var wordLength = function(a, b) { //a是文字的class，b是按钮的class
+				var ininWordArr = []; //用来存储所有段落的文字
+				var nowWordArr = []; //用来存储隐藏后所有段落的文字
+				$(a).each(function() {
+					var initWordLength = $(this).html().length; //当前段落文字的长度
+					var ininWord = $(this).html();
+					ininWordArr.push(ininWord);
+					var nowWord;
+					if(initWordLength > 20) {
+						nowWord = $(this).html().substr(0, 20) + '......';
+					} else {
+						nowWord = $(this).html();
+						$(this).next().css('display', 'none');
+					}
+					$(this).html(nowWord);
+					nowWordArr.push(nowWord);
+				})
+				$(document).on('click', b, function() {
+					var i = $(b).index($(this));
+					if($(this).html() == '[展开]') {
+						$(this).html('[收起]');
+						$(this).prev().html(ininWordArr[i]);
+					} else {
+						$(this).html('[展开]');
+						$(this).prev().html(nowWordArr[i]);
+					}
+					return false;
+				})
+			}('.word-length', '.btn')
+		}
+	</script>
+</head>
+
+<body>
+	<div>
+		<p class="word-length">
+			超过20个字多余隐藏超过20个字多余隐藏超过20个字多余隐藏超过20个字多余隐藏超过20个字多余隐藏超过20个字多余隐藏
+		</p>
+		<span class="btn">[展开]</span>
+	</div>
+	<div>
+		<p class="word-length">
+			超过20个字多余隐藏超过20个字多余隐藏超过20个字多余隐藏超过20个字多余隐藏
+		</p>
+		<span class="btn">[展开]</span>
+	</div>
+	<div>
+		<p class="word-length">
+			没超过20个字
+		</p>
+		<span class="btn">[展开]</span>
+	</div>
+
+</body>
+
+</html>

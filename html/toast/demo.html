@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title>Title</title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+				border: 0;
+			}
+			#maskWrap{
+				width: 100%;
+				height: 100%;
+				background: rgba(0,0,0,0.7);
+				position: fixed;/*absolute*/
+				z-index: 99999;
+				left: 0;
+				top: 0;
+				display: none;
+			}
+			#maskWrap .megWrap{
+				width: 80%;
+				border-radius: 20px;
+				background: #fff;
+				position: relative;
+				left:50%;
+			    top:50%;
+			    transform:translate(-50%,-50%);
+			    text-align: center;
+			}
+			#maskWrap .title{
+				padding-top: 10px;
+			}
+			#maskWrap .content{
+				margin: 10px 20px;
+				font-size: 14px;
+				line-height: 24px;
+				color: #999;
+			}
+			#maskWrap .btnWrap{
+				border-top: 1px solid #e2e0e5;
+				display: flex;
+			}
+			#maskWrap .maskCancel{
+				border-right: 1px solid #e2e0e5;
+			}
+			#maskWrap .btnWrap span{
+				flex: 1;
+				height: 40px;
+				line-height: 40px;
+				color: #3883ff;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div style="width: 100px;height: 100px;" onclick="showMask()">显示弹框</div>
+		<div id="maskWrap">
+			<div class="megWrap">
+				<h3 class="title">标题</h3>
+				<p class="content">提示容提示内容</p>
+				<div class="btnWrap">
+					<span class="maskCancel" onclick="maskCancel()">取消</span>
+					<span onclick="maskSure()">确定</span>
+				</div>
+			</div>
+		</div>
+		<script src="../../js/libs/jquery-1.11.3.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			function maskCancel(){
+				console.log("取消")
+				$("#maskWrap").css("display","none")
+			}
+			function maskSure(){
+				console.log("确定")
+				$("#maskWrap").css("display","none")
+			}
+			function showMask(){
+				$("#maskWrap .content").text("显示成功");
+				$("#maskWrap").css("display","block");
+			}
+		</script>
+
+	</body>
+
+</html>

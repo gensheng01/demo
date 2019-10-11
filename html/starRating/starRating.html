@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			ul {
+			   padding-left: 0;
+			   overflow: hidden;
+			}
+			ul li {
+			   float: left;
+			   list-style: none;
+			   width: 20px;
+			   height: 20px;
+			}
+			ul li a {
+			   display: inline-block;
+			   padding-top:20px;
+			   width: 50%;
+			   overflow: hidden;
+			}
+			.emptyStar{
+				background: url(./start_empty.png) no-repeat;
+				background-size: 100% 100%;
+			}
+			.halfStar{
+			   background: url(./start_half.png) no-repeat;
+				background-size: 100% 100%;
+			}
+			.fullStar{
+			   background: url(./start_fall.png) no-repeat;
+				background-size: 100% 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="mark">
+		    <ul>
+		        <li class="emptyStar"><a href="javascript:;">1</a><a href="javascript:;">2</a></li>
+		        <li class="emptyStar"><a href="javascript:;">3</a><a href="javascript:;">4</a></li>
+		        <li class="emptyStar"><a href="javascript:;">5</a><a href="javascript:;">6</a></li>
+		        <li class="emptyStar"><a href="javascript:;">7</a><a href="javascript:;">8</a></li>
+		        <li class="emptyStar"><a href="javascript:;">9</a><a href="javascript:;">10</a></li>
+		    </ul>
+		</div>
+		<script src="../../js/libs/jquery-1.11.3.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			 $(".mark ul li a").on("click",function () {
+		        //判断是全星点还是半星点，修改当前标签的父标签li的class为对应的星星图像
+		        if(parseInt($(this).html()) %2 == 1){
+		            $(this).parent().attr("class","halfStar");
+		        }else{
+		            $(this).parent().attr("class","fullStar");
+		        }
+		        //对前方的星星进行处理，遍历前方的li使背景图均变为全星
+		        var prev = $(this).parent();
+		        for(var i = 0;i <= (parseInt($(this).html()) / 2) - 1;i++){
+		            prev.prev().attr("class","fullStar");
+		            prev = prev.prev();
+		        }
+		        //对后方星星进行处理，遍历后面的li使背景图均变为空星
+		        var after = $(this).parent();
+		        for(var i = 0; i<= (5 - parseInt($(this).html()) / 2) - 1;i++){
+		            after.next().attr("class","emptyStar");
+		            after = after.next();
+		        }
+		    })
+		</script>
+	</body>
+</html>

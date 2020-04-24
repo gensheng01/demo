@@ -1,0 +1,17 @@
+.slideLeft {
+	display: block;
+	width: 100%;
+	height: auto;
+	position: relative;
+	left: 0;
+	animation-delay: 1s;
+	animation-name: slideLeftAnimation;
+	animation: slideLeftAnimation 2s alternate;
+	-webkit-animation: slideLeftAnimation 2s alternate;
+	-moz-animation: slideLeftAnimation 2s alternate;
+}
+
+@-webkit-keyframes slideLeftAnimation {
+	0% {left: -100%;}
+	100% {left: 0; }
+}

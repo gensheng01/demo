@@ -1,0 +1,15 @@
+.fadeIn {
+	display: block;
+	width: 100%;
+	height: auto;
+	animation-delay: 1s;
+	animation-name: fadeInAnimation;
+	animation: fadeInAnimation 2s alternate;
+	-webkit-animation: fadeInAnimation 2s alternate;
+	-moz-animation: fadeInAnimation 2s alternate;
+}
+
+@-webkit-keyframes fadeInAnimation {
+	0% {opacity:0;}
+	100% {opacity:1;}
+}

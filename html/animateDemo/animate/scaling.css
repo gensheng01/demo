@@ -1,0 +1,15 @@
+.scaling {
+	display: block;
+	width: 100%;
+	height: auto;
+	animation-delay: 1s;
+	animation-name: scalingAnimation;
+	animation: scalingAnimation 2s alternate;
+	-webkit-animation: scalingAnimation 2s alternate;
+	-moz-animation: scalingAnimation 2s alternate;
+}
+
+@-webkit-keyframes scalingAnimation {
+	0% {transform: scale(0.5);}
+	100% {transform: scale(1);}
+}

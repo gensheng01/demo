@@ -1,0 +1,17 @@
+.slideRight {
+	display: block;
+	width: 100%;
+	height: auto;
+	position: relative;
+	right: 0;
+	animation-delay: 1s;
+	animation-name: slideRightAnimation;
+	animation: slideRightAnimation 2s alternate;
+	-webkit-animation: slideRightAnimation 2s alternate;
+	-moz-animation: slideRightAnimation 2s alternate;
+}
+
+@-webkit-keyframes slideRightAnimation {
+	0% {right: -100%;}
+	100% {right: 0;}
+}

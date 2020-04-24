@@ -40,9 +40,9 @@
 }
 .pay-password .surface-ipts .surface-ipt input{
     width: 0.65rem;
-    height: 0.9rem;
+    height: 0.65rem;
     /*margin:0  0.1rem;*/
-    line-height: 0.9rem;
+    line-height: 0.65rem;
     border: 0;
     /*border-right: 1px solid #999999;*/
     color: #333333;

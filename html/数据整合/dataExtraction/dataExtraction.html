@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			
+			
+			let getData = [{
+				"id": "5e9b9732303e43f8abf1f745acedd688",
+				"normId": "3111df79514040d7a8d2e2318534ca61",
+				"normName": "一致性",
+				"measureId": "a9736bc0496743529ec5cbf80ea29678",
+				"measureName": "正则表达式",
+				"ruleCount": 1,
+				"normWeight": 1.0,
+				"membership": null,
+				"measureWeight": 0.1,
+				"allWeigth": 0.1,
+				"reportId": "ae3e403040694928b283a92e153e3ab7",
+				"del": 0
+			}, {
+				"id": "a86aad6c1334453bab20d95dc0c9a706",
+				"normId": "3111df79514040d7a8d2e2318534ca61",
+				"normName": "一致性",
+				"measureId": "e58a04ebcc3c4234234234267a5b92cf",
+				"measureName": "数据长度",
+				"ruleCount": 1,
+				"normWeight": 1.0,
+				"membership": null,
+				"measureWeight": 0.9,
+				"allWeigth": 0.9,
+				"reportId": "ae3e403040694928b283a92e153e3ab7",
+				"del": 0
+			}]
+			console.log(getData)
+			let newData =[];
+			getData.forEach(item=>{
+				let check = newData.find(mm=>{
+					return mm.levelName == item.normName
+				})
+				if(check){
+					let obj = {
+						"id": item.id,
+			            "levelId": item.measureId,
+			            "levelName": item.measureName,
+			            "parentId": "",
+			            "reportId": item.reportId,
+			            "ruleCount": item.ruleCount,
+			            "weight": item.allWeigth
+					}
+					newData.forEach(nn=>{
+						if(nn.levelName == item.normName){
+							nn.datas.push(obj)
+						}
+					})
+				}else{
+					let obj = {
+						"id": item.id,
+			            "levelId": item.normId,
+			            "levelName": item.normName,
+			            "parentId": "",
+			            "reportId": item.reportId,
+			            "ruleCount": item.ruleCount,
+			            "weight": item.measureWeight,
+			            "datas": [
+			            	{
+			            		"id": item.id,
+					            "levelId": item.measureId,
+					            "levelName": item.measureName,
+					            "parentId": "",
+					            "reportId": item.reportId,
+					            "ruleCount": item.ruleCount,
+					            "weight": item.allWeigth
+			            	}
+			            ]
+					}
+					newData.push(obj)
+				}
+			})
+			console.log(newData)
+			/*
+			 [
+          {
+            "id": "",
+            "levelId": "3111df79514040d7a8d2e2318534ca61",
+            "levelName": "一致性",
+            "parentId": "",
+            "reportId": "0e73c590ba2c4510b1c0eaacbd49b018",
+            "ruleCount": 1,
+            "weight": 1.0
+            "datas": [
+              { 
+             "id": "",
+             "levelId": "a9736bc0496743529ec5cbf80ea29678",
+             "levelName": "正则表达式",
+             "parentId": "",
+             "reportId": "0e73c590ba2c4510b1c0eaacbd49b018",
+             "ruleCount": 1,
+             "weight": 0.9},
+           { 
+             "id": "",
+             "levelId": "e58a04ebcc3c4234234234267a5b92cf",
+             "levelName": "数据长度",
+             "parentId": "",
+             "reportId": "0e73c590ba2c4510b1c0eaacbd49b018",
+             "ruleCount": 1,
+             "weight":  0.1},
+            ]
+          }
+        ]
+			 * */
+		</script>
+	</body>
+
+</html>
